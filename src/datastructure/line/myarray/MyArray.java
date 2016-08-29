@@ -13,6 +13,7 @@ import java.util.ListIterator;
  * @author zhengjianhui
  *
  */
+@SuppressWarnings("rawtypes")
 public class MyArray implements List{
 	
 	// 数组默认的长度

@@ -7,6 +7,7 @@ package datastructure.line.myarray;
  * @author zhengjianhui
  *
  */
+@SuppressWarnings("serial")
 public class MyException extends IndexOutOfBoundsException{
 
 	public MyException(String err) {

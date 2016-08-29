@@ -1,6 +1,5 @@
 package datastructure.line.myarray;
 
-import java.util.List;
 
 import org.junit.Test;
 

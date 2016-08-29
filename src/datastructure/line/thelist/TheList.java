@@ -2,6 +2,8 @@ package datastructure.line.thelist;
 
 import org.junit.Test;
 
+import datastructure.line.thelist.single.ListSLinked;
+
 /**
  * 测试单向链表
  * @author zhengjianhui
