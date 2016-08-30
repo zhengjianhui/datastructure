@@ -12,7 +12,7 @@ import datastructure.line.stack.StackEmptyException;
  * @author zhengjianhui
  *
  */
-public class StackArray implements Stack {
+public class StackArray<T> implements Stack {
 	
 	// 栈 默认 大小
 	private final int LEN = 8;
@@ -61,20 +61,22 @@ public class StackArray implements Stack {
 	
 	
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object pop() {
+	public T pop() {
 		if(isEmpty()) throw new StackEmptyException("错误，空栈");
 		
 		Object o = elements[top];
 		elements[top --] = null;
-		return o;
+		return (T) o;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object peek() {
+	public T peek() {
 		if(isEmpty()) throw new StackEmptyException("错误，空栈");
 		
-		return elements[top];
+		return (T) elements[top];
 	}
 
 }
