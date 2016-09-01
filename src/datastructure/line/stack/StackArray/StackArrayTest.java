@@ -6,7 +6,7 @@ public class StackArrayTest {
 
 	@Test
 	public void test() {
-		StackArray s = new StackArray();
+		StackArray<Integer> s = new StackArray<Integer>();
 		
 		s.push(1);
 		System.out.println(s.getSize());
