@@ -1,9 +1,11 @@
-package datastructure.tree.node;
+package datastructure.tree.binTree;
 
 import datastructure.Node;
 import datastructure.line.nodeList.doubleNodeList.LinkedList;
 import datastructure.line.nodeList.doubleNodeList.LinkedListDLNote;
 import datastructure.line.nodeList.doubleNodeList.Iterator.Iterator;
+import datastructure.line.stack.Stack;
+import datastructure.line.stack.stackLinked.StackSLLinked;
 
 /**
  * Created by zhengjianhui on 17/2/5.
@@ -43,7 +45,7 @@ public class BinTreeNode implements Node {
      */
     private int size;
 
-    /** assist node status start */
+    /** assist binTree status start */
 
     /**
      * 辅助判断父节点是否为空
@@ -97,7 +99,7 @@ public class BinTreeNode implements Node {
         return (hasParent() && this == parent.rightChild);
     }
 
-    /** assist node status end */
+    /** assist binTree status end */
 
     /** assist height start */
 
@@ -322,6 +324,7 @@ public class BinTreeNode implements Node {
 
     /**
      *
+     * 递归先序遍历
      * @param node 节点
      * @param list 保存节点的线性表
      */
@@ -337,6 +340,123 @@ public class BinTreeNode implements Node {
         preOrderRecursion(node.getLeftChild(), list);
         // 遍历右树
         preOrderRecursion(node.getRightChild(), list);
+    }
+
+
+    /**
+     * 非递归遍历
+     * @return
+     */
+    public Iterator postOrder() {
+        LinkedList list = new LinkedListDLNote();
+        postOrderTraverse(this, list);
+
+        return list.elements();
+    }
+
+
+    /**
+     * 非递归 后续遍历
+     *   后续遍历 结果为
+     *   DEB FGC A
+     *   利用栈的特性
+     *   1. 左边是否还有节点，有则入栈，直到没有左边元素
+     *   2. 弹出元素
+     *   3. 弹出的元素是否是上一个元素的右元素，是的话说明该元素的左右元素都访问过了，将该元素出栈
+     *   4. 转向父元素的右边
+     *   5. 转到父元素的右边后，先将右元素入栈，入栈后是否还有左？
+     *      有则重复1
+     *      没有重复2
+     * @param node
+     * @param list
+     */
+    private void postOrderTraverse(BinTreeNode node, LinkedList list) {
+        // 如果节点为空则返回
+        if(node == null) {
+            return;
+        }
+
+        BinTreeNode p = node;
+        // 利用栈 后进先出的特性
+        Stack stack = new StackSLLinked();
+
+
+        while(p != null || !stack.isEmpty()) { // p 等于null 时 如果 栈不为空集合则继续循环
+
+            while(p != null) { // 先往左走
+                stack.push(p);
+
+                if(p.hasLeft()) { // 如果有左孩子则取左孩子
+                    p = p.getLeftChild();
+
+                } else { // 否则取右孩子， 到最左后会取得最左节点的 右孩子
+                    p = p.getRightChild();
+                }
+            }
+
+            if(!stack.isEmpty()) {
+                p = (BinTreeNode) stack.pop();  // 取出栈顶元素
+                list.insertLast(p);             // 保存进列表里
+            }
+
+            while(!stack.isEmpty() && p == ((BinTreeNode)stack.peek()).getRightChild()) {
+                // 进入该代码段，说明节点已经访问过右边元素
+
+                // 栈顶第一个元素的右孩子指向之前出栈的元素
+                // 说明已经访问过右元素，应该将该节点出栈
+
+                // 最后到根节点必然会进入该代码段
+                p = (BinTreeNode) stack.pop();
+                list.insertLast(p);
+            }
+
+            if(!stack.isEmpty()) {
+                // 转向访问右边元素 节点不出栈
+                p = ((BinTreeNode) stack.peek()).getRightChild();
+            } else {
+                p = null;
+            }
+
+        }
+
+    }
+
+    /**
+     * 在二叉树中查找元素
+     * @param e
+     * @return
+     */
+    public BinTreeNode find(Object e) {
+        return searchElement(this, e);
+    }
+
+    /**
+     * 递归查找
+     * @param node
+     * @param e
+     * @return
+     */
+    private BinTreeNode searchElement(BinTreeNode node, Object e) {
+
+        // 如果节点为null 说明到底了返回 null
+        if(node == null) {
+            return null;
+        }
+
+        // 如果是该节点则返回该节点
+        if(node.getData().equals(e)) {
+            return this;
+        }
+
+        // 否则从左边子树开始找
+        BinTreeNode v = searchElement(node.getLeftChild(), e);
+
+        // 左边子树没有找到时，往右边子树开始找
+        if(v == null) {
+            v = searchElement(node.getRightChild(), e);
+        }
+
+        return v;
     }
 
 }

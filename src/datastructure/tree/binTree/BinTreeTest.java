@@ -1,11 +1,10 @@
-package datastructure.tree;
+package datastructure.tree.binTree;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import datastructure.line.nodeList.doubleNodeList.DLNode;
 import datastructure.line.nodeList.doubleNodeList.Iterator.Iterator;
-import datastructure.tree.node.BinTreeNode;
 
 /**
  * Created by zhengjianhui on 17/2/6.
@@ -22,6 +21,18 @@ public class BinTreeTest {
      *
      *   先序遍历 结果为
      *   A BDE CFG
+     *
+     *   后续遍历 结果为
+     *   DEB FGC A
+     *   利用栈的特性
+     *   1. 左边是否还有节点，有则入栈，直到没有左边元素
+     *   2. 弹出元素
+     *   3. 弹出的元素是否是上一个元素的右元素，是的话说明该元素的左右元素都访问过了，将该元素出栈
+     *   4. 转向父元素的右边
+     *   5. 转到父元素的右边后，先将右元素入栈，入栈后是否还有左？
+     *      有则重复1
+     *      没有重复2
+     *
      *
      */
     @Before
@@ -63,6 +74,36 @@ public class BinTreeTest {
             System.out.println(c.getData());
             it.next();
         }
+
+    }
+
+    @Test
+    public void test2() {
+        System.out.println("开始遍历");
+        Iterator it = a.postOrder();
+
+        while(!it.isDone()) {
+            DLNode b = (DLNode)it.currentItem();
+            BinTreeNode c = (BinTreeNode) b.getData();
+            System.out.println(c.getData());
+            it.next();
+        }
+    }
+
+
+
+    @Test
+    public void test3() {
+        System.out.println("开始查找");
+
+        String find1 = "A";
+        String find2 = "我234";
+
+        BinTreeNode a1 = a.find(find1);
+        BinTreeNode a2 = a.find(find2);
+
+        System.out.println(a1 == null ? false : true);
+        System.out.println(a2 == null ? false : true);
 
     }
 
