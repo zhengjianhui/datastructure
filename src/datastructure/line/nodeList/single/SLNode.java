@@ -1,7 +1,7 @@
-package datastructure.line.stack.stackLinked;
-
+package datastructure.line.nodeList.single;
 
 import datastructure.Node;
+
 
 /**
  * 节点定义

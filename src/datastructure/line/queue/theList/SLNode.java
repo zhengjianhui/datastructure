@@ -1,13 +1,14 @@
 package datastructure.line.queue.theList;
 
 
+import datastructure.Node;
 
 /**
  * 节点定义
  * @author zhengjianhui
  *
  */
-public class SLNode implements Node{
+public class SLNode implements Node {
 
 	// 数据域
 	private Object element;
