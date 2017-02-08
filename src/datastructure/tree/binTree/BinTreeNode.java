@@ -343,6 +343,47 @@ public class BinTreeNode implements Node {
     }
 
 
+
+    /**
+     * 中序遍历
+     * BST 中序转换后总能得到从小到大的 有序列表
+     * @return
+     */
+    public Iterator inorderOrder() {
+        LinkedList list = new LinkedListDLNote();
+        inorderOrderTraverse(this, list);
+        return list.elements();
+    }
+
+    /**
+     * 中序遍历二叉树
+     * @param node
+     * @param list
+     */
+    public void inorderOrderTraverse(BinTreeNode node, LinkedList list) {
+
+        BinTreeNode p = node;
+        Stack stack = new StackSLLinked();
+
+        while(p != null || !stack.isEmpty()) {
+
+            while(p != null) {
+                stack.push(p); // root 入栈
+                if(p != null) {
+                    p = p.getLeftChild();   // 最后一个节点时，P不等于null 进方法 当时p的左孩子为null p = null 后结束循环
+                }
+            }
+
+            if(!stack.isEmpty()) {
+                p = (BinTreeNode) stack.pop();
+                list.insertLast(p);
+                p = p.getRightChild();  // 到最左后 看最左是否有 右孩子（之后每往上一层都查看一次右孩子）
+            }
+        }
+
+    }
+
+
     /**
      * 非递归遍历
      * @return
@@ -353,7 +394,6 @@ public class BinTreeNode implements Node {
 
         return list.elements();
     }
-
 
     /**
      * 非递归 后续遍历
