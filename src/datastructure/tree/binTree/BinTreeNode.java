@@ -45,6 +45,10 @@ public class BinTreeNode implements Node {
      */
     private int size;
 
+    public void setParent(BinTreeNode parent) {
+        this.parent = parent;
+    }
+
     /** assist binTree status start */
 
     /**
@@ -113,7 +117,7 @@ public class BinTreeNode implements Node {
 
     public void updateHeight() {
 
-        int newHeight = 0; // 初始的高度为0， 新高度为左右子树中最高的一个值 + 1
+        int newHeight = 1; // 初始的高度为1， 新高度为左右子树中最高的一个值 + 1
 
         // 如果有左孩子
         if(hasLeft()) {
@@ -229,6 +233,9 @@ public class BinTreeNode implements Node {
      */
     public BinTreeNode setLeftChild(BinTreeNode newLeft) {
 
+        if(newLeft == null) {
+            return null;
+        }
         // 当前左孩子
         BinTreeNode now = null;
         // 当前左孩子断开与父元素的连接
@@ -241,7 +248,8 @@ public class BinTreeNode implements Node {
         // 新的左孩子
         this.leftChild = newLeft;
         // 建立新左孩子的父关系
-        newLeft.parent = this;
+        BinTreeNode temp = this;
+        newLeft.setParent(temp);
 
         // 更新高度 和 规模
         updateHeight();
@@ -272,6 +280,10 @@ public class BinTreeNode implements Node {
      */
     public BinTreeNode setRightChild(BinTreeNode newRight) {
 
+        if(newRight == null) {
+            return null;
+        }
+
         // 当前右孩子
         BinTreeNode now = null;
         // 当前右孩子断开与父元素的连接
@@ -284,7 +296,8 @@ public class BinTreeNode implements Node {
         // 新的右孩子
         this.rightChild = newRight;
         // 建立新右孩子的父关系
-        newRight.parent = this;
+        BinTreeNode temp = this;
+        newRight.setParent(temp);
 
         // 更新高度 和 规模
         updateHeight();

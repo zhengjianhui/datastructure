@@ -13,7 +13,7 @@ import datastructure.tree.binTree.BinTreeNode;
  *
  * 二叉查找树的基本查找方法从根节点开始，递归缩小查找方位， 直到发现目标元素位置（查找成功）或查找范围缩小为空树（查找失败）
  */
-public class BSTTree<T> extends BinTreeNode {
+public class BSTTree extends BinTreeNode {
 
     /**
      * 记录root 节点
@@ -30,6 +30,14 @@ public class BSTTree<T> extends BinTreeNode {
 
     public void setRoot(BinTreeNode root) {
         this.root = root;
+    }
+
+    public BinTreeNode getStartBN() {
+        return startBN;
+    }
+
+    public void setStartBN(BinTreeNode startBN) {
+        this.startBN = startBN;
     }
 
     /**
@@ -222,7 +230,7 @@ public class BSTTree<T> extends BinTreeNode {
      * 
      * @param ele
      */
-    public void insert(Object ele, Strategy strategy) {
+    public BinTreeNode insert(Object ele, Strategy strategy) {
 
         BinTreeNode current = root; // 当前节点（最后可能为空）
         BinTreeNode currentParent = null; // 当前节点的父节点
@@ -238,20 +246,22 @@ public class BSTTree<T> extends BinTreeNode {
         }
 
         // 待平衡出发点
-        startBN = current;
-
+        startBN = currentParent;
+        BinTreeNode node = null;
         if (currentParent == null) { // 树为空时直接插入root节点
             root = new BinTreeNode();
             root.setData(ele);
         } else if (strategy.compare(currentParent.getData(), ele) > 0) {
-            BinTreeNode node = new BinTreeNode();
+            node = new BinTreeNode();
             node.setData(ele);
             currentParent.setLeftChild(node);
         } else {
-            BinTreeNode node = new BinTreeNode();
+            node = new BinTreeNode();
             node.setData(ele);
             currentParent.setRightChild(node);
         }
+
+        return node;
 
     }
 
@@ -303,7 +313,7 @@ public class BSTTree<T> extends BinTreeNode {
         }
 
         // 待平衡出发点
-        startBN = v.getParent();
+        startBN = del.getParent();
         // 确认是否有子树
         if(del.hasLeft()) {
             subT = del.getLeftChild();

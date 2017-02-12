@@ -28,6 +28,7 @@ public class BSTTreeTest {
      *      8B       17C
      *   6D    9E   16F   20G
      *
+     *
      */
     @Before
     public void before() {
@@ -207,8 +208,6 @@ public class BSTTreeTest {
             System.out.println(c.getData());
             it2.next();
         }
-
-        System.out.println("删除后的根节点：" + b.getRoot().getData());
 
 
     }

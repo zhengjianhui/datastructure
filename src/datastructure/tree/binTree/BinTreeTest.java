@@ -61,6 +61,8 @@ public class BinTreeTest {
         c.setLeftChild(f);
         c.setRightChild(g);
 
+        System.out.println("A的高度 :" +  a.getHeight());
+
     }
 
     @Test
