@@ -2,6 +2,8 @@ package datastructure.search.half;
 
 /**
  * Created by zhengjianhui on 17/2/7.
+ *
+ * 因为-1 +1 最终lo > hi 时条件不成立，查找失败（没有找到）
  */
 public class HalfSearch {
 

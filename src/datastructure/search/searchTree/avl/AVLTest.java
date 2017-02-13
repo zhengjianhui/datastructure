@@ -24,32 +24,6 @@ public class AVLTest {
         a1.setData(15);
         a1.setRoot(a1);
 
-//        AVLTree a2  = new AVLTree();
-//        a2.setData(6);
-//        a2.setRoot(a1);
-//        a1.setLeftChild(a2);
-//
-//        AVLTree a3  = new AVLTree();
-//        a3.setData(3);
-//        a3.setRoot(a1);
-//        a1.setLeftChild(a2);
-//
-//
-//        AVLTree a4  = new AVLTree();
-//        AVLTree a5  = new AVLTree();
-//        AVLTree a6  = new AVLTree();
-//        AVLTree a7  = new AVLTree();
-//        AVLTree a8  = new AVLTree();
-//        AVLTree a9  = new AVLTree();
-//        AVLTree a10  = new AVLTree();
-//        AVLTree a11  = new AVLTree();
-//        AVLTree a12  = new AVLTree();
-//        AVLTree a13  = new AVLTree();
-//        AVLTree a14  = new AVLTree();
-//        AVLTree a15  = new AVLTree();
-//        AVLTree a16  = new AVLTree();
-
-
         Strategy strategy = new Strategy() {
             @Override
             public int compare(Object obj1, Object obj2) {
