@@ -32,7 +32,7 @@ public class InsertTest {
 
     @Test
     public void test2() {
-        Integer[] arr = {1, 10, 5, 8, 9, 11, 20 ,30, 22};
+        Integer[] arr = {15, 10, 5, 8, 9, 11, 20 ,30, 22};
 
         Insert.binInsertSort(arr, 0, arr.length - 1, new Strategy() {
             @Override
