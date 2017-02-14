@@ -117,7 +117,8 @@ public class BinTreeNode implements Node {
 
     public void updateHeight() {
 
-        int newHeight = 1; // 初始的高度为1， 新高度为左右子树中最高的一个值 + 1
+        int newHeight = 0; // 初始的高度为0， 新高度为左右子树中最高的一个值 + 1
+                            // 为1 时，插入新元素后父节点高度为2，此时例如右兄弟为null 时 平衡因子为 -1  左 - 右（1- -1） = 2 触发旋转，此时二叉树并不是失衡的
 
         // 如果有左孩子
         if(hasLeft()) {
@@ -446,6 +447,9 @@ public class BinTreeNode implements Node {
                     p = p.getRightChild();
                 }
             }
+
+            // 树的后续遍历栈的最大长度就是树的高度
+            System.out.println(stack.getSize());
 
             if(!stack.isEmpty()) {
                 p = (BinTreeNode) stack.pop();  // 取出栈顶元素
