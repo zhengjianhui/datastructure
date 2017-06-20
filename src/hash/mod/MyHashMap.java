@@ -1,8 +1,6 @@
 package hash.mod;
 
 
-import java.util.Random;
-
 /**
  * Created by zhengjianhui on 17/6/19.
  */
@@ -126,7 +124,6 @@ public class MyHashMap<T> {
      * @param args
      */
     public static void main(String[] args) {
-        Random ran = new Random();
         MyHashMap<Integer> datas = new MyHashMap<>();
         datas.add(15);
         datas.add(25);
