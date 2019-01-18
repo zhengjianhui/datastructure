@@ -20,28 +20,32 @@ public class ConsistentHash<T> {
     // 节点的复制因子,实际节点个数 * numberOfReplicas = 虚拟节点个数
     private final int numberOfReplicas;
 
-    // 存储虚拟节点的hash值到真实节点的映射
-    private final SortedMap<Long, T> circle = new TreeMap<Long, T>();
+    /**
+     * 存储虚拟节点的hash值到真实节点的映射
+     * key 为虚拟节点, value 对应真实节点,  多个虚拟节点对应一个 真实节点即多个 key 对应 一个 value
+     */
+    private final SortedMap<Long, T> circle = new TreeMap();
 
     public ConsistentHash(HashFunction hashFunction, int numberOfReplicas, Collection<T> nodes) {
         this.hashFunction = hashFunction;
         this.numberOfReplicas = numberOfReplicas;
 
-        for (T node : nodes)
+        for (T node : nodes) {
+            // 根据复制因子, 每个节点对应复制因子个虚拟节点
             add(node);
+        }
     }
 
     /**
      * 每个真是节点保存的 value 个数
-     * @param node
      */
     public void add(T node) {
         for (int i = 0; i < numberOfReplicas; i++)
             // 对于一个实际机器节点 node, 对应 numberOfReplicas 个虚拟节点
-             /*
-              * 不同的虚拟节点(i不同)有不同的hash值,但都对应同一个实际机器node
-              * 虚拟node一般是均衡分布在环上的,数据存储在顺时针方向的虚拟node上
-              */
+            /*
+             * 不同的虚拟节点(i不同)有不同的hash值,但都对应同一个实际机器node
+             * 虚拟node一般是均衡分布在环上的,数据存储在顺时针方向的虚拟node上
+             */
             circle.put(hashFunction.hash(node.toString() + i), node);
     }
 
@@ -86,9 +90,9 @@ public class ConsistentHash<T> {
         }
 
         System.out.println("----each location 's distance are follows: ----");
-         /*
-          * 查看用MD5算法生成的long hashCode 相邻两个hashCode的差值
-          */
+        /*
+         * 查看用MD5算法生成的long hashCode 相邻两个hashCode的差值
+         */
         Iterator<Long> it = sortedSets.iterator();
         Iterator<Long> it2 = sortedSets.iterator();
         if (it2.hasNext())
